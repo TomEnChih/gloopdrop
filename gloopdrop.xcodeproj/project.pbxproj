@@ -16,6 +16,7 @@
 		CE3031502A149BB4009FCCD3 /* SpriteKitHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE30314F2A149BB4009FCCD3 /* SpriteKitHelper.swift */; };
 		CE3031522A149DC2009FCCD3 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3031512A149DC2009FCCD3 /* Player.swift */; };
 		CE3031542A149FE3009FCCD3 /* Collectible.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3031532A149FE3009FCCD3 /* Collectible.swift */; };
+		CE3031572A14AAF3009FCCD3 /* Nosifer-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CE3031562A14AAF3009FCCD3 /* Nosifer-Regular.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +31,7 @@
 		CE30314F2A149BB4009FCCD3 /* SpriteKitHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpriteKitHelper.swift; sourceTree = "<group>"; };
 		CE3031512A149DC2009FCCD3 /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 		CE3031532A149FE3009FCCD3 /* Collectible.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Collectible.swift; sourceTree = "<group>"; };
+		CE3031562A14AAF3009FCCD3 /* Nosifer-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Nosifer-Regular.ttf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,10 +74,19 @@
 				CE30314F2A149BB4009FCCD3 /* SpriteKitHelper.swift */,
 				04F79EB523F988900066ECE5 /* Main.storyboard */,
 				04F79EB823F988910066ECE5 /* Assets.xcassets */,
+				CE3031552A14AAF3009FCCD3 /* Fonts */,
 				04F79EBA23F988910066ECE5 /* LaunchScreen.storyboard */,
 				04F79EBD23F988910066ECE5 /* Info.plist */,
 			);
 			path = gloopdrop;
+			sourceTree = "<group>";
+		};
+		CE3031552A14AAF3009FCCD3 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				CE3031562A14AAF3009FCCD3 /* Nosifer-Regular.ttf */,
+			);
+			path = Fonts;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -136,6 +147,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CE3031572A14AAF3009FCCD3 /* Nosifer-Regular.ttf in Resources */,
 				04F79EB723F988900066ECE5 /* Main.storyboard in Resources */,
 				04F79EB923F988910066ECE5 /* Assets.xcassets in Resources */,
 				04F79EBC23F988910066ECE5 /* LaunchScreen.storyboard in Resources */,

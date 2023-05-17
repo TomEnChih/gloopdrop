@@ -36,7 +36,8 @@ class GameViewController: UIViewController {
       
       // Set the view options
       view.ignoresSiblingOrder = false
-      view.showsPhysics = false
+#warning("顯示physics body範圍")
+      view.showsPhysics = true
       view.showsFPS = true
       view.showsNodeCount = true
     }

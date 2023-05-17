@@ -31,6 +31,8 @@ class Player: SKSpriteNode {
     
     self.walkTextures = self.loadTextures(atlas: "blob", prefix: "blob-walk_",
                                           startsAt: 0, stopsAt: 2)
+    self.dieTextures = self.loadTextures(atlas: "blob", prefix: "blob-die_",
+                                         startsAt: 0, stopsAt: 0)
     
     /* The call to the `loadTextures` extension essentially does this:
     self.walkTextures = [SKTexture(imageNamed: "blob-walk_0"),
