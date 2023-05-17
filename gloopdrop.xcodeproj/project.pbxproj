@@ -15,6 +15,7 @@
 		04F79EBC23F988910066ECE5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04F79EBA23F988910066ECE5 /* LaunchScreen.storyboard */; };
 		CE3031502A149BB4009FCCD3 /* SpriteKitHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE30314F2A149BB4009FCCD3 /* SpriteKitHelper.swift */; };
 		CE3031522A149DC2009FCCD3 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3031512A149DC2009FCCD3 /* Player.swift */; };
+		CE3031542A149FE3009FCCD3 /* Collectible.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3031532A149FE3009FCCD3 /* Collectible.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		04F79EBD23F988910066ECE5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CE30314F2A149BB4009FCCD3 /* SpriteKitHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpriteKitHelper.swift; sourceTree = "<group>"; };
 		CE3031512A149DC2009FCCD3 /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
+		CE3031532A149FE3009FCCD3 /* Collectible.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Collectible.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,6 +68,7 @@
 				04F79EB123F988900066ECE5 /* GameScene.swift */,
 				04F79EB323F988900066ECE5 /* GameViewController.swift */,
 				CE3031512A149DC2009FCCD3 /* Player.swift */,
+				CE3031532A149FE3009FCCD3 /* Collectible.swift */,
 				CE30314F2A149BB4009FCCD3 /* SpriteKitHelper.swift */,
 				04F79EB523F988900066ECE5 /* Main.storyboard */,
 				04F79EB823F988910066ECE5 /* Assets.xcassets */,
@@ -148,6 +151,7 @@
 			files = (
 				04F79EB223F988900066ECE5 /* GameScene.swift in Sources */,
 				04F79EB423F988900066ECE5 /* GameViewController.swift in Sources */,
+				CE3031542A149FE3009FCCD3 /* Collectible.swift in Sources */,
 				04F79EAC23F988900066ECE5 /* AppDelegate.swift in Sources */,
 				CE3031522A149DC2009FCCD3 /* Player.swift in Sources */,
 				CE3031502A149BB4009FCCD3 /* SpriteKitHelper.swift in Sources */,
