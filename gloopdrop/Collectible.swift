@@ -17,7 +17,7 @@ enum CollectibleType: String {
 
 class Collectible: SKSpriteNode {
   // MARK: - PROPERTIES
-  private var collectibleType: CollectibleType = .none
+  private var collectibleType: CollectibleType
 
   // MARK: - INIT
   init(collectibleType: CollectibleType) {
@@ -36,6 +36,13 @@ class Collectible: SKSpriteNode {
     self.name = "co_\(collectibleType)"
     self.anchorPoint = CGPoint(x: 0.5, y: 1.0)
     self.zPosition = Layer.collectible.rawValue
+    
+    self.physicsBody = SKPhysicsBody(rectangleOf: self.size, center: .init(x: 0, y: -self.size.height/2))
+    self.physicsBody?.affectedByGravity = false
+    
+    self.physicsBody?.categoryBitMask = PhysicsCategory.collectible
+    self.physicsBody?.contactTestBitMask = PhysicsCategory.player | PhysicsCategory.foreground
+    self.physicsBody?.collisionBitMask = PhysicsCategory.none
   }
   
   required init?(coder aDecoder: NSCoder) {
@@ -58,6 +65,17 @@ class Collectible: SKSpriteNode {
     // 先讓size變小，再透過SKAction.scale達到要掉落的效果
     self.scale(to: CGSize(width: 0.25, height: 1.0))
     self.run(actionSequence, withKey: "drop")
+  }
+  
+  // Handle Contacts
+  func collected() {
+    let removeFromParent = SKAction.removeFromParent()
+    self.run(removeFromParent)
+  }
+  
+  func missed() {
+    let removeFromParent = SKAction.removeFromParent()
+    self.run(removeFromParent)
   }
 }
 
