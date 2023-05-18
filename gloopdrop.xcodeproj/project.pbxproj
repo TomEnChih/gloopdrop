@@ -17,6 +17,14 @@
 		CE3031522A149DC2009FCCD3 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3031512A149DC2009FCCD3 /* Player.swift */; };
 		CE3031542A149FE3009FCCD3 /* Collectible.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3031532A149FE3009FCCD3 /* Collectible.swift */; };
 		CE3031572A14AAF3009FCCD3 /* Nosifer-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CE3031562A14AAF3009FCCD3 /* Nosifer-Regular.ttf */; };
+		CE3031592A14CD6C009FCCD3 /* GloopFlow.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE3031582A14CD6C009FCCD3 /* GloopFlow.sks */; };
+		CE3031632A14CE7E009FCCD3 /* music.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = CE30315B2A14CE7E009FCCD3 /* music.mp3 */; };
+		CE3031712A14CE97009FCCD3 /* bubbles.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = CE30316B2A14CE97009FCCD3 /* bubbles.mp3 */; };
+		CE3031722A14CE97009FCCD3 /* collect.wav in Resources */ = {isa = PBXBuildFile; fileRef = CE30316C2A14CE97009FCCD3 /* collect.wav */; };
+		CE3031732A14CE97009FCCD3 /* miss.wav in Resources */ = {isa = PBXBuildFile; fileRef = CE30316D2A14CE97009FCCD3 /* miss.wav */; };
+		CE3031742A14CE97009FCCD3 /* blob_mumble-2.wav in Resources */ = {isa = PBXBuildFile; fileRef = CE30316E2A14CE97009FCCD3 /* blob_mumble-2.wav */; };
+		CE3031752A14CE97009FCCD3 /* blob_mumble-3.wav in Resources */ = {isa = PBXBuildFile; fileRef = CE30316F2A14CE97009FCCD3 /* blob_mumble-3.wav */; };
+		CE3031762A14CE97009FCCD3 /* blob_mumble-1.wav in Resources */ = {isa = PBXBuildFile; fileRef = CE3031702A14CE97009FCCD3 /* blob_mumble-1.wav */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +40,14 @@
 		CE3031512A149DC2009FCCD3 /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 		CE3031532A149FE3009FCCD3 /* Collectible.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Collectible.swift; sourceTree = "<group>"; };
 		CE3031562A14AAF3009FCCD3 /* Nosifer-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Nosifer-Regular.ttf"; sourceTree = "<group>"; };
+		CE3031582A14CD6C009FCCD3 /* GloopFlow.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GloopFlow.sks; sourceTree = "<group>"; };
+		CE30315B2A14CE7E009FCCD3 /* music.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = music.mp3; sourceTree = "<group>"; };
+		CE30316B2A14CE97009FCCD3 /* bubbles.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = bubbles.mp3; sourceTree = "<group>"; };
+		CE30316C2A14CE97009FCCD3 /* collect.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = collect.wav; sourceTree = "<group>"; };
+		CE30316D2A14CE97009FCCD3 /* miss.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = miss.wav; sourceTree = "<group>"; };
+		CE30316E2A14CE97009FCCD3 /* blob_mumble-2.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "blob_mumble-2.wav"; sourceTree = "<group>"; };
+		CE30316F2A14CE97009FCCD3 /* blob_mumble-3.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "blob_mumble-3.wav"; sourceTree = "<group>"; };
+		CE3031702A14CE97009FCCD3 /* blob_mumble-1.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "blob_mumble-1.wav"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,7 +90,10 @@
 				CE30314F2A149BB4009FCCD3 /* SpriteKitHelper.swift */,
 				04F79EB523F988900066ECE5 /* Main.storyboard */,
 				04F79EB823F988910066ECE5 /* Assets.xcassets */,
+				CE3031582A14CD6C009FCCD3 /* GloopFlow.sks */,
 				CE3031552A14AAF3009FCCD3 /* Fonts */,
+				CE30315A2A14CE7E009FCCD3 /* Music */,
+				CE30316A2A14CE97009FCCD3 /* Sounds */,
 				04F79EBA23F988910066ECE5 /* LaunchScreen.storyboard */,
 				04F79EBD23F988910066ECE5 /* Info.plist */,
 			);
@@ -87,6 +106,27 @@
 				CE3031562A14AAF3009FCCD3 /* Nosifer-Regular.ttf */,
 			);
 			path = Fonts;
+			sourceTree = "<group>";
+		};
+		CE30315A2A14CE7E009FCCD3 /* Music */ = {
+			isa = PBXGroup;
+			children = (
+				CE30315B2A14CE7E009FCCD3 /* music.mp3 */,
+			);
+			path = Music;
+			sourceTree = "<group>";
+		};
+		CE30316A2A14CE97009FCCD3 /* Sounds */ = {
+			isa = PBXGroup;
+			children = (
+				CE30316B2A14CE97009FCCD3 /* bubbles.mp3 */,
+				CE30316C2A14CE97009FCCD3 /* collect.wav */,
+				CE30316D2A14CE97009FCCD3 /* miss.wav */,
+				CE30316E2A14CE97009FCCD3 /* blob_mumble-2.wav */,
+				CE30316F2A14CE97009FCCD3 /* blob_mumble-3.wav */,
+				CE3031702A14CE97009FCCD3 /* blob_mumble-1.wav */,
+			);
+			path = Sounds;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -147,8 +187,16 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CE3031742A14CE97009FCCD3 /* blob_mumble-2.wav in Resources */,
 				CE3031572A14AAF3009FCCD3 /* Nosifer-Regular.ttf in Resources */,
+				CE3031592A14CD6C009FCCD3 /* GloopFlow.sks in Resources */,
+				CE3031712A14CE97009FCCD3 /* bubbles.mp3 in Resources */,
+				CE3031632A14CE7E009FCCD3 /* music.mp3 in Resources */,
 				04F79EB723F988900066ECE5 /* Main.storyboard in Resources */,
+				CE3031722A14CE97009FCCD3 /* collect.wav in Resources */,
+				CE3031762A14CE97009FCCD3 /* blob_mumble-1.wav in Resources */,
+				CE3031752A14CE97009FCCD3 /* blob_mumble-3.wav in Resources */,
+				CE3031732A14CE97009FCCD3 /* miss.wav in Resources */,
 				04F79EB923F988910066ECE5 /* Assets.xcassets in Resources */,
 				04F79EBC23F988910066ECE5 /* LaunchScreen.storyboard in Resources */,
 			);
@@ -311,14 +359,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 37EC5M4237;
+				DEVELOPMENT_TEAM = B872VZ5RA9;
 				INFOPLIST_FILE = gloopdrop/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = net.justwritecode.gloopdrop;
+				PRODUCT_BUNDLE_IDENTIFIER = com.tomtung.gloopdrop;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -330,14 +378,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 37EC5M4237;
+				DEVELOPMENT_TEAM = B872VZ5RA9;
 				INFOPLIST_FILE = gloopdrop/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = net.justwritecode.gloopdrop;
+				PRODUCT_BUNDLE_IDENTIFIER = com.tomtung.gloopdrop;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

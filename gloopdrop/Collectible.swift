@@ -18,6 +18,10 @@ enum CollectibleType: String {
 class Collectible: SKSpriteNode {
   // MARK: - PROPERTIES
   private var collectibleType: CollectibleType
+  private let playCollectSound = SKAction.playSoundFileNamed("collect.wav",
+                                                    waitForCompletion: false)
+  private let playMissSound = SKAction.playSoundFileNamed("miss.wav",
+                                                    waitForCompletion: false)
 
   // MARK: - INIT
   init(collectibleType: CollectibleType) {
@@ -65,17 +69,30 @@ class Collectible: SKSpriteNode {
     // 先讓size變小，再透過SKAction.scale達到要掉落的效果
     self.scale(to: CGSize(width: 0.25, height: 1.0))
     self.run(actionSequence, withKey: "drop")
+
+    // Add glow effect
+    // 周圍加上模糊特效
+    let effectNode = SKEffectNode()
+    effectNode.shouldRasterize = true
+    addChild(effectNode)
+    effectNode.addChild(SKSpriteNode(texture: texture))
+    effectNode.filter = CIFilter(name: "CIGaussianBlur",
+                                 parameters: ["inputRadius":40.0])
   }
   
   // Handle Contacts
   func collected() {
     let removeFromParent = SKAction.removeFromParent()
-    self.run(removeFromParent)
+    let actionGroup = SKAction.group([playCollectSound, removeFromParent])
+    self.run(actionGroup)
   }
   
   func missed() {
-    let removeFromParent = SKAction.removeFromParent()
-    self.run(removeFromParent)
+    let move = SKAction.moveBy(x: 0, y: -size.height/1.5, duration: 0.0)
+    let splatX = SKAction.scaleX(to: 1.5, duration: 0.0) // make wider
+    let splatY = SKAction.scaleY(to: 0.5, duration: 0.0) // make shorter
+    let actionGroup = SKAction.group([playMissSound, move, splatX, splatY])
+    self.run(actionGroup)
   }
 }
 

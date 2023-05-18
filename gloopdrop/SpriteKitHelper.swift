@@ -26,7 +26,59 @@ enum Layer: CGFloat {
   case ui
 }
 
+
+extension SKNode {
+  
+  // Used to set up an endless scroller
+  func setUpScrollingView(imageNamed name: String, layer: Layer,
+                          emitterNamed: String?, blocks: Int, speed: TimeInterval) {
+    
+    for i in 0..<blocks {
+      let spriteNode = SKSpriteNode(imageNamed: name)
+      spriteNode.anchorPoint = .zero
+      spriteNode.position = .init(x: CGFloat(i) * spriteNode.size.width, y: 0)
+      spriteNode.zPosition = layer.rawValue
+      spriteNode.name = name
+      
+      spriteNode.endlessScroll(speed: speed)
+      
+      if let emitterNamed = emitterNamed,
+          let particles = SKEmitterNode(fileNamed: emitterNamed) {
+        particles.name = "particles"
+        spriteNode.addChild(particles)
+      }
+      
+      addChild(spriteNode)
+    }
+  }
+}
+
+/*
+ SKAction.moveBy vs SKAction.moveTo
+ 
+ - SKAction.moveBy: 用於在當前位置的基礎上進行相對移動
+ ex. SKAction.moveBy(x: 100, y: 0, duration: 1)
+ 表示將 SpriteNode 在 X 軸上向右移動 100 個單位，而 Y 軸上不變
+ 
+ - SKAction.moveTo：用於直接將 SpriteNode 移動到指定的目標位置。需要指定目標位置的絕對座標
+ ex. SKAction.moveTo(x: 200, duration: 1)
+ 表示將 SpriteNode 移動到 X 軸上的絕對位置 200
+ 
+ */
+
 extension SKSpriteNode {
+  
+  // Used to create an endless scrolling background
+  func endlessScroll(speed: TimeInterval) {
+    
+    // Set up actions to move and reset nodes
+    let moveAction = SKAction.moveBy(x: -self.size.width, y: 0, duration: speed)
+    let resetAction = SKAction.moveBy(x: self.size.width, y: 0, duration: 0.0)
+    
+    let sequenceAction = SKAction.sequence([moveAction, resetAction])
+    let repeatAction = SKAction.repeatForever(sequenceAction)
+    run(repeatAction)
+  }
   
   func loadTextures(atlas: String, prefix: String,
                     startsAt: Int, stopsAt: Int) -> [SKTexture] {

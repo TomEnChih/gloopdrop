@@ -8,6 +8,7 @@
 
 import SpriteKit
 import GameplayKit
+import AVFoundation
 
 class GameScene: SKScene {
   
@@ -38,6 +39,7 @@ class GameScene: SKScene {
   var dropSpeed: CGFloat = 1.0
   var minDropSpeed: CGFloat = 0.12 // (fastest drop)
   var maxDropSpeed: CGFloat = 1.0 // (slowest drop)
+  var prevDropLocation: CGFloat = 0.0
   
   // Labels
   lazy var scoreLabel: SKLabelNode = {
@@ -69,15 +71,42 @@ class GameScene: SKScene {
     return node
   }()
   
+  // Audio nodes
+  let musicAudioNode = SKAudioNode(fileNamed: "music.mp3")
+  let bubblesAudioNode = SKAudioNode(fileNamed: "bubbles.mp3")
+  
   var gameInProgress = false
   
   override func didMove(to view: SKView) {
+    
+    // Decrease the audio engine's volume
+    // 為了一開始不聽見 musicAudioNode
+    audioEngine.mainMixerNode.outputVolume = 0.0
+    
+    musicAudioNode.autoplayLooped = true
+    musicAudioNode.isPositional = false   //根據node的位置進行更改
+    
+    addChild(musicAudioNode)
+    
+    // Use an action to adjust the audio node's volume to 0
+    musicAudioNode.run(.changeVolume(to: 0.0, duration: 0.0))
+    
+    run(.wait(forDuration: 1.0)) { [unowned self] in
+      audioEngine.mainMixerNode.outputVolume = 1.0
+      musicAudioNode.run(.changeVolume(to: 0.75, duration: 2.0))
+    }
+    
+    run(.wait(forDuration: 1.5)) { [unowned self] in
+      bubblesAudioNode.autoplayLooped = true
+      addChild(bubblesAudioNode)
+    }
     
     // Set up the physics world contact delegate
     physicsWorld.contactDelegate = self
     
     // Set up background
     let background = SKSpriteNode(imageNamed: "background_1")
+    background.name = "background"
     background.anchorPoint = CGPoint(x: 0, y: 0)
     background.zPosition = Layer.background.rawValue
     background.position = CGPoint(x: 0, y: 0)
@@ -85,6 +114,7 @@ class GameScene: SKScene {
     
     // Set up foreground
     let foreground = SKSpriteNode(imageNamed: "foreground_1")
+    foreground.name = "foreground"
     foreground.anchorPoint = CGPoint(x: 0, y: 0)
     foreground.zPosition = Layer.foreground.rawValue
     foreground.position = CGPoint(x: 0, y: 0)
@@ -100,21 +130,28 @@ class GameScene: SKScene {
     
     addChild(foreground)
     
+    // Set up the banner
+    let banner = SKSpriteNode(imageNamed: "banner")
+    banner.zPosition = Layer.foreground.rawValue
+    banner.position = CGPoint(x: frame.midX, y: viewTop() - 20)
+    banner.anchorPoint = CGPoint(x: 0.5, y: 1.0)
+    addChild(banner)
+    
     // Set up player
     player.position = CGPoint(x: size.width/2, y: foreground.frame.maxY)
     player.setupConstraints(floor: foreground.frame.maxY)
     addChild(player)
     
     showMessage("Tap to start game")
+    
+    setUpGloopFlow()
   }
   
   func showMessage(_ message: String) {
-    // Set up message label
     let messageLabel = SKLabelNode()
     messageLabel.name = "message"
     messageLabel.position = CGPoint(x: frame.midX, y: player.frame.maxY + 100)
     messageLabel.zPosition = Layer.ui.rawValue
-    
     messageLabel.numberOfLines = 2
     
     // Set up attributed text
@@ -145,6 +182,21 @@ class GameScene: SKScene {
                                           SKAction.removeFromParent()]))
     }
   }
+  
+  // MARK: - Gloop Flow & Particle Effects
+  
+  func setUpGloopFlow() {
+    let gloopFlow = SKNode()
+    gloopFlow.name = "gloopFlow"
+    gloopFlow.zPosition = Layer.foreground.rawValue
+    gloopFlow.position = .init(x: 0.0, y: -60)
+    
+    gloopFlow.setUpScrollingView(imageNamed: "flow_1",
+                                 layer: Layer.foreground,
+                                 emitterNamed: "GloopFlow.sks",
+                                 blocks: 3, speed: 30)
+    addChild(gloopFlow)
+  }
 }
   
 
@@ -160,6 +212,7 @@ extension GameScene {
     hideMessage()
     
     player.walk()
+    player.mumble()
     
     if gameInProgress == false {
       score = 0
@@ -212,8 +265,51 @@ extension GameScene {
     // set random position
     let margin = collectible.size.width * 2
     let dropRange = SKRange(lowerLimit: frame.minX + margin, upperLimit: frame.maxX - margin)
-    let randomX = CGFloat.random(in: dropRange.lowerLimit...dropRange.upperLimit)
-
+    var randomX = CGFloat.random(in: dropRange.lowerLimit...dropRange.upperLimit)
+    
+    
+    /* START ENHANCED DROP MOVEMENT
+     this helps to create a "snake-like" pattern */
+    
+    let randomModifier = SKRange(lowerLimit: 50 + CGFloat(level),
+                                 upperLimit: 60 * CGFloat(level))
+    var modifier = CGFloat.random(in: randomModifier.lowerLimit...randomModifier.upperLimit)
+    if modifier > 400 { modifier = 400 }
+    
+    // Set the previous drop location
+    if prevDropLocation == 0.0 {
+      prevDropLocation = randomX
+    }
+    
+    // Clamp its x-position
+    if prevDropLocation < randomX {
+      randomX = prevDropLocation + modifier
+    } else {
+      randomX = prevDropLocation - modifier
+    }
+    
+    if randomX <= (frame.minX + margin) {
+      randomX = frame.minX + margin
+    } else if randomX >= (frame.maxX - margin) {
+      randomX = frame.maxX - margin
+    }
+    
+    // Store the location
+    prevDropLocation = randomX
+    
+    /* END ENHANCED DROP MOVEMENT */
+    
+    // Add the number tag to the collectible drop
+    let xLabel = SKLabelNode()
+    xLabel.name = "dropNumber"
+    xLabel.fontName = "AvenirNext-DemiBold"
+    xLabel.fontColor = UIColor.yellow
+    xLabel.fontSize = 22.0
+    xLabel.text = "\(numberOfDrops)"
+    xLabel.position = CGPoint(x: 0, y: 2)
+    collectible.addChild(xLabel)
+    numberOfDrops -= 1 // decrease drop count by 1
+    
     collectible.position = CGPoint(x: randomX, y: player.position.y * 2.5)
     addChild(collectible)
 
@@ -260,6 +356,7 @@ extension GameScene {
   
   func resetPlayerPosition() {
     let resetPoint = CGPoint(x: frame.midX, y: player.position.y)
+    #warning("不太確定")
     let distance = hypot(resetPoint.x-player.position.x, 0)
     let calculatedSpeed = TimeInterval(distance / (playerSpeed * 2)) / 255
 
@@ -271,13 +368,20 @@ extension GameScene {
   }
   
   func popRemainingDrops() {
+    var i = 0
     enumerateChildNodes(withName: "//co_*") {
       (node, stop) in
       
-      let removeFromParent = SKAction.removeFromParent()
-      let actionSequence = SKAction.sequence([removeFromParent])
+      // Pop remaining drops in sequence
+      let initialWait = SKAction.wait(forDuration: 1.0)
+      let wait = SKAction.wait(forDuration: TimeInterval(0.15 * CGFloat(i)))
       
+      let removeFromParent = SKAction.removeFromParent()
+      let actionSequence = SKAction.sequence([initialWait, wait, removeFromParent])
+
       node.run(actionSequence)
+      
+      i += 1
     }
   }
   
@@ -295,9 +399,13 @@ extension GameScene {
     }
     
 #warning("很棒的fun")
-    let touchedNode = atPoint(pos)
-    if touchedNode.name == "player" {
-      movingPlayer = true
+//    let touchedNode = atPoint(pos)
+    let touchedNodes = nodes(at: pos)
+    for touchedNode in touchedNodes {
+      print("touchedNode: \(String(describing: touchedNode.name))")
+      if touchedNode.name == "player" {
+        movingPlayer = true
+      }
     }
   }
   
@@ -368,6 +476,27 @@ extension GameScene: SKPhysicsContactDelegate {
         dropsCollected += 1
         score += level
         checkForRemainingDrops()
+        
+        // Add the 'chomp' text at the player's position
+        let chomp = SKLabelNode(fontNamed: "Nosifer")
+        chomp.name = "chomp"
+        chomp.alpha = 0.0
+        chomp.fontSize = 22.0
+        chomp.text = "gloop"
+        chomp.horizontalAlignmentMode = .center
+        chomp.verticalAlignmentMode = .bottom
+        chomp.position = CGPoint(x: player.position.x, y: player.frame.maxY + 25)
+        chomp.zRotation = CGFloat.random(in: -0.15...0.15)
+        addChild(chomp)
+        
+        // Add actions to fade in, rise up, and fade out
+        let fadeIn = SKAction.fadeAlpha(to: 1.0, duration: 0.05)
+        let fadeOut = SKAction.fadeAlpha(to: 0.0, duration: 0.45)
+        let moveUp = SKAction.moveBy(x: 0.0, y: 45, duration: 0.45)
+        let groupAction = SKAction.group([fadeOut, moveUp])
+        let removeFromParent = SKAction.removeFromParent()
+        let chompAction = SKAction.sequence([fadeIn, groupAction, removeFromParent])
+        chomp.run(chompAction)
       }
     }
 
